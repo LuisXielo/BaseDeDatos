@@ -137,4 +137,10 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "debes rellenar los campos", Toast.LENGTH_SHORT).show();
         }
     }
+    // metodo limpiar
+    public void Limpiar (View view){
+        txt_codigo.setText("");
+        txt_descripcion.setText("");
+        txt_precio.setText("");
+    }
 }

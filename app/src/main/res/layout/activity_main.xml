@@ -93,6 +93,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="16dp"
         android:backgroundTint="#E40A47"
+        android:onClick="Limpiar"
         android:text="@string/btn_Limpiar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button9" />
