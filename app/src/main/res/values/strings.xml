@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">BaseDeDatos</string>
     <string name="txt_codigo">Codigo del producto</string>
-    <string name="txt_descripcion">Codigo del producto</string>
-    <string name="txt_precio">Codigo del producto</string>
+    <string name="txt_descripcion">Descripcion del producto</string>
+    <string name="txt_precio">Precio del producto</string>
     <string name="btn_Registrar">Registrar producto</string>
     <string name="btn_Buscar">Buscar producto</string>
     <string name="btn_Eliminar">Eliminar producto</string>
