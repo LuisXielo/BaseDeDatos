@@ -3,6 +3,7 @@ package com.example.basededatos;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+// private String NombreBaseDatos = "administracion"- cambiaria todos los " name: "administracion""
     private EditText txt_codigo, txt_descripcion, txt_precio;
 
     @Override
@@ -58,5 +60,34 @@ public class MainActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "Debes rellenar todos los campos", Toast.LENGTH_LONG).show();
         }
+    }
+    // metodo buscar
+    public void Buscar (View view){
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+        SQLiteDatabase BaseDeDatos = admin.getWritableDatabase();
+
+        String codigo = txt_codigo.getText().toString();
+
+        if(!codigo.isEmpty()){
+            Cursor fila = BaseDeDatos.rawQuery("select descripcion, precio from articulos where codigo =" + codigo, null);
+
+            // al devolver un array es [0,1] proque siempre inicia en 0 el array
+            if (fila.moveToFirst()){
+                txt_descripcion.setText(fila.getString(0));
+                txt_precio.setText(fila.getString(1));
+                BaseDeDatos.close();
+
+            }else {
+                Toast.makeText(this, "El articulo no existe", Toast.LENGTH_SHORT).show();
+                BaseDeDatos.close();
+            }
+        }else{
+            Toast.makeText(this, "Debes introducir el codigo", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    //metodo eliminar producto
+    public void Eliminar (View view){
+
     }
 }
