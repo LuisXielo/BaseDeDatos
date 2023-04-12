@@ -88,6 +88,53 @@ public class MainActivity extends AppCompatActivity {
 
     //metodo eliminar producto
     public void Eliminar (View view){
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+        SQLiteDatabase BaseDeDatos = admin.getWritableDatabase();
 
+        String codigo = txt_codigo.getText().toString();
+        // "!" es para decir que no este vacio
+        if(!codigo.isEmpty()){
+            int cantidad = BaseDeDatos.delete("articulos", "codigo=" + codigo, null);
+            BaseDeDatos.close();
+
+            if(cantidad == 1){
+                txt_codigo.setText("");
+                txt_descripcion.setText("");
+                txt_precio.setText("");
+                Toast.makeText(this, "el articulo se ha borrado", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(this, "no exite", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(this, "desbes introducir el codigo del articulo", Toast.LENGTH_SHORT).show();
+        }
+    }
+    //metodo de modificar
+    public void Modificar (View view){
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+        SQLiteDatabase BaseDeDatos = admin.getWritableDatabase();
+
+        String codigo = txt_codigo.getText().toString();
+        String descripcion = txt_descripcion.getText().toString();
+        String precio = txt_precio.getText().toString();
+
+        if (!codigo.isEmpty() && !descripcion.isEmpty() && !precio.isEmpty()){
+            ContentValues registro = new ContentValues();
+
+            registro.put("codigo", codigo);
+            registro.put("descripcion", descripcion);
+            registro.put("precio", precio);
+            // en el otro teniamos INSET pero aqui puede ser que solo modifiquemos una cosa y no todas
+            int cantidad = BaseDeDatos.update("articulos", registro, "codigo=" + codigo, null);
+            BaseDeDatos.close();
+
+            if (cantidad == 1){
+                Toast.makeText(this, "El articulo se ha modificado", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(this, "El articulo no exite", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(this, "debes rellenar los campos", Toast.LENGTH_SHORT).show();
+        }
     }
 }
